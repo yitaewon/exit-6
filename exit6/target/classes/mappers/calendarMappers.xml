@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+	<mapper namespace="boardMapper">
+	
+		<insert id="insertCalendar" parameterType="CalendarVo">
+			INSERT INTO CALENDAR
+			(CALNO
+			, CALYEAR
+			, CALMONTH
+			, CALDAY
+			, CALTIME
+			, CALCONTENTS
+			, CALREQ)
+			VALUES																						
+			(CALENDAR_SEQ.NEXTVAL
+			, #{calYear}
+			, #{calMonth}
+			, #{calDay}
+			, #{calTime}
+			, #{contents}
+			, #{calReq})
+		</insert>
+	
+		<delete id="deleteCalendarByNo" parameterType="int">
+			DELETE 
+				CALENDAR
+			WHERE
+				CALNO 				= #{calNo}
+		</delete>
+		
+		<select id="getAllCalendars" resultType="CalendarVo">
+			SELECT
+				CALNO				as calNo,
+				CALYEAR 			as calYear,
+				CALMONTH			as calMonth,
+				CALDAY				as calDay,
+				CALTIME 			as calTime,
+				CALCONTENTS 		as contents,
+				CALREQ 				as calReq
+			FROM
+				CALENDAR
+		</select>
+		
+		<select id="getCalendarByDay" parameterType="int" resultType="CalendarVo">
+			SELECT
+				CALNO				as calNo,
+				CALYEAR 			as calYear,
+				CALMONTH			as calMonth,
+				CALDAY 				as calDay,
+				CALTIME 			as calTime,
+				CALCONTENTS 		as contents,
+				CALREQ 				as calReq
+			FROM
+				CALENDAR
+			WHERE
+				CALDAY 				= #{value}
+		</select>
+	</mapper>
